@@ -1,98 +1,5 @@
 <?php
 
-class ThemeUpdater
-{
-    private $repo;
-    private $zipball_url;
-    private $theme_dir;
-
-    public function __construct($repo, $zipball_url, $theme_dir)
-    {
-        $this->repo = $repo;
-        $this->zipball_url = $zipball_url;
-        $this->theme_dir = $theme_dir;
-
-        add_filter('pre_set_site_transient_update_themes', array($this, 'checkForUpdate'));
-        add_filter('upgrader_post_install', array($this, 'afterUpdate'), 10, 2);
-    }
-
-    public function checkForUpdate($transient)
-    {
-        if (empty($transient->checked)) {
-            return $transient;
-        }
-
-        echo 'called';
-
-        $theme_data = wp_get_theme(wp_get_theme()->template);
-
-        $repo = json_decode(wp_remote_retrieve_body(wp_remote_get($this->repo . '/releases/latest')), true);
-
-        $version = isset($repo['tag_name']) ? $repo['tag_name'] : '';
-
-        if (version_compare($theme_data->get('Version'), $version, '<')) {
-            $transient->response[wp_get_theme()->template] = array(
-                'theme'       => wp_get_theme()->template,
-                'new_version' => $version,
-                'url'         => $this->repo,
-                'package'     => $this->zipball_url,
-            );
-        }
-
-        return $transient;
-    }
-
-    public function afterUpdate($response, $hook_extra)
-    {
-        $theme = wp_get_theme(wp_get_theme()->template);
-
-        if ($theme->get('Version') === $response['new_version']) {
-            return;
-        }
-
-        $this->cleanUp();
-
-        $new_theme = $this->installTheme($response['package']);
-
-        update_option('template', $new_theme);
-        update_option('stylesheet', $new_theme);
-
-        $this->cleanUp();
-
-        return $response;
-    }
-
-    private function installTheme($package)
-    {
-        include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-        include_once ABSPATH . 'wp-admin/includes/file.php';
-        include_once ABSPATH . 'wp-admin/includes/misc.php';
-        include_once ABSPATH . 'wp-admin/includes/plugin.php';
-        include_once ABSPATH . 'wp-admin/includes/theme.php';
-
-        WP_Filesystem();
-
-        $skin = new \WP_Upgrader_Skin();
-        $upgrader = new \Theme_Upgrader($skin);
-        $upgrader->install($package);
-
-        return $upgrader->theme_info();
-    }
-
-    private function cleanUp()
-    {
-        global $wp_filesystem;
-
-        if (!defined('FS_METHOD')) {
-            define('FS_METHOD', 'direct');
-        }
-
-        WP_Filesystem();
-
-        $delete = $wp_filesystem->delete($this->theme_dir, true);
-    }
-}
-
 /**
  * Theme Update Checker Library 1.2
  * http://w-shadow.com/
@@ -187,7 +94,7 @@ class ThemeUpdateChecker {
 		
 		//Send the request.
 		$result = wp_remote_get($url, $options);
-		
+
 		//Try to parse the response
 		$themeUpdate = null;
 		$code = wp_remote_retrieve_response_code($result);
@@ -195,6 +102,7 @@ class ThemeUpdateChecker {
 		if ( ($code == 200) && !empty($body) ){
 			$themeUpdate = ThemeUpdate::fromJson($body);
 			//The update should be newer than the currently installed version.
+			
 			if ( ($themeUpdate != null) && version_compare($themeUpdate->version, $this->getInstalledVersion(), '<=') ){
 				$themeUpdate = null;
 			}

@@ -481,7 +481,7 @@ require get_template_directory() . '/inc/acf-builder.php';
 require get_template_directory() . '/inc/theme-update-checker.php';
 $update_checker = new ThemeUpdateChecker(
     'intranet',
-    'https://github.com/jimishsoni1990/kevin-intranet'
+    'https://raw.githubusercontent.com/jimishsoni1990/kevin-intranet/main/version-info.json'
 );
 
 /**
