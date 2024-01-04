@@ -1,4 +1,7 @@
 <?php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(1);
 define('PHOENIX_ASSETS', get_stylesheet_directory_uri().'/assets/phoenix');
 
 function check_required_plugins() {
@@ -23,7 +26,6 @@ function check_required_plugins() {
         <?php
     }
 }
-
 add_action('admin_notices', 'check_required_plugins');
 
 
@@ -475,6 +477,12 @@ require get_template_directory() . '/inc/acf-builder.php';
 // Dark Mode.
 //require_once get_template_directory() . '/classes/class-twenty-twenty-one-dark-mode.php';
 //new intranet_Dark_Mode();
+
+require get_template_directory() . '/inc/theme-update-checker.php';
+$update_checker = new ThemeUpdateChecker(
+    'intranet',
+    'https://github.com/jimishsoni1990/kevin-intranet'
+);
 
 /**
  * Enqueue scripts for the customizer preview.
