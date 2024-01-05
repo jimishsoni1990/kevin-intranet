@@ -1,8 +1,10 @@
 <?php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(1);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(1);
 define('PHOENIX_ASSETS', get_stylesheet_directory_uri().'/assets/phoenix');
+define( 'MY_ACF_PATH', get_stylesheet_directory() . '/inc/plugins/acf/' );
+define( 'MY_ACF_URL', get_stylesheet_directory_uri() . '/inc/plugins/acf/' );
 
 function check_required_plugins() {
     $missing_plugins = array();
@@ -27,7 +29,6 @@ function check_required_plugins() {
     }
 }
 add_action('admin_notices', 'check_required_plugins');
-
 
 /**
  * Functions and definitions
@@ -483,6 +484,18 @@ $update_checker = new ThemeUpdateChecker(
     'intranet',
     'https://raw.githubusercontent.com/jimishsoni1990/kevin-intranet/main/version-info.json'
 );
+
+// Include the ACF plugin.
+include_once( MY_ACF_PATH . 'acf.php' );
+
+// Hide the ACF admin menu item.
+// add_filter('acf/settings/show_admin', '__return_false');
+
+// Customize the URL setting to fix incorrect asset URLs.
+add_filter('acf/settings/url', 'my_acf_settings_url');
+function my_acf_settings_url( $url ) {
+	return MY_ACF_URL;
+}
 
 /**
  * Enqueue scripts for the customizer preview.
