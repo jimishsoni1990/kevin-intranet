@@ -17,6 +17,56 @@
                 "id": ""
             },
             "layouts": {
+                "layout_65a955f855911": {
+                    "key": "layout_65a955f855911",
+                    "name": "accordion",
+                    "label": "Accordion",
+                    "display": "table",
+                    "sub_fields": [
+                        {
+                            "key": "field_65a9560d55913",
+                            "label": "Title",
+                            "name": "title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_65a9561d55914",
+                            "label": "Description",
+                            "name": "description",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_649c0a17c48bd": {
                     "key": "layout_649c0a17c48bd",
                     "name": "to_do_list",
@@ -446,5 +496,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1704465866
+    "modified": 1705596645
 }
