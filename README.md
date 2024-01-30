@@ -3,6 +3,11 @@ This is exclusive theme for intranet project.
 
 ## Changelog:
 
+### Version : 1.5.2
+Date : 30-Jan-2024
+- Auto update year in footer copyright
+- Hide pagination if total items are less than 5
+
 ### Version : 1.5.1
 Date : 18-Jan-2024
 - Accordions support added
