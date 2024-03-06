@@ -655,3 +655,42 @@ function intranet_phoenix_require_js(){
 	    </script>
 	<?php
 }
+
+// set date field value in "Table Title-date" to today date if empty when save
+function save_post_check_date_fields($post_id) {
+
+	$default_date = current_time('m/d/y');
+
+	if( have_rows('builder') ):
+		while( have_rows('builder') ): the_row();
+
+			if( have_rows('section_data_content') ):
+
+				while( have_rows('section_data_content') ) : the_row();
+
+					if( get_row_layout() == 'table_title_date' ){
+
+						if( have_rows('table_data') ):
+
+							while( have_rows('table_data') ) : the_row();
+
+								$date = get_sub_field('date');
+
+								if( empty($date) ){
+									update_sub_field( 'date', $default_date );
+								}
+
+							endwhile;
+						endif;
+
+					}
+
+				endwhile;
+			endif;
+
+		endwhile;
+	endif;
+
+}
+// Hook into the ACF save_post action
+add_action('acf/save_post', 'save_post_check_date_fields', 20);
