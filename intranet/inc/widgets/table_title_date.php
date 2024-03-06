@@ -17,29 +17,33 @@ if( have_rows('table_data') ):
 							while( have_rows('table_data') ) : the_row();
 
 								$heading 		= get_sub_field('heading');
+								$description 	= get_sub_field('description');
 								$date 			= get_sub_field('date');
 								$attach_file 	= get_sub_field('attach_file');
 								$link_url 		= get_sub_field('link');
+
 								?>
 
-											<tr>
-												<td class="align-middle time white-space-nowrap ps-0 title">
-													
-    <?php if ($link_url != '') { ?>
-        <a href="<?php echo $link_url; ?>" target='_blank' download>
-    <?php } elseif ($attach_file != '') { ?>
-        <a href="<?php echo $attach_file; ?>" target='_blank' download>
-    <?php } ?>
-    <p class="mb-0 fs-0"><?php echo $heading; ?></p>
-    <?php if ($link_url != '' || $attach_file != '') { ?>
-        </a>
-    <?php } ?>
-</td>
+									<tr>
+										<td class="align-middle time white-space-nowrap ps-0 title">
 
-												<td class="align-middle white-space-nowrap start ps-3 date">
-													<p class="mb-0 fs--1 text-900"><?php echo $date; ?></p>
-												</td>
-											</tr>
+											<?php if ($link_url != '') { ?>
+												<a href="<?php echo $link_url; ?>" target='_blank' download>
+													<?php } elseif ($attach_file != '') { ?>
+													<a href="<?php echo $attach_file; ?>" target='_blank' download>
+													<?php } ?>
+														<p class="mb-0 fs-0"><?php echo $heading; ?></p>
+													<?php if ($link_url != '' || $attach_file != '') { ?>
+													</a>
+											<?php } ?>
+
+											<?php echo $description; ?>
+										</td>
+
+										<td class="align-middle white-space-nowrap start ps-3 date">
+											<p class="mb-0 fs--1 text-900"><?php echo $date; ?></p>
+										</td>
+									</tr>
 
 							<?php
 								$i++;
