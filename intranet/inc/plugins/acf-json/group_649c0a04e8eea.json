@@ -261,6 +261,27 @@
                                     "parent_repeater": "field_649c25b7729bf"
                                 },
                                 {
+                                    "key": "field_65e81141e2c9c",
+                                    "label": "Description",
+                                    "name": "description",
+                                    "aria-label": "",
+                                    "type": "textarea",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "rows": "",
+                                    "placeholder": "",
+                                    "new_lines": "",
+                                    "parent_repeater": "field_649c25b7729bf"
+                                },
+                                {
                                     "key": "field_649dbb82cf7d7",
                                     "label": "Attach file",
                                     "name": "attach_file",
@@ -496,5 +517,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1705596645
+    "modified": 1709708504
 }
